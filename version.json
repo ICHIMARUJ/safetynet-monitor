@@ -1,8 +1,8 @@
 {
-  "version": "1.0.0",
-  "url": "https://raw.githubusercontent.com/ICHIMARUJ/safetynet-monitor/main/releases/SafetyNet-1.0.0.zip",
-  "sha256": "9e1817bf1226ad26b1d16e6fa5e8372de316a6e8514d0940b1807704689b8e28",
-  "size": 924201,
-  "notes": "첫 배포: 실시간 감시·실수 기록·본전 알림·구글 시트 일지·자동 업데이트",
+  "version": "1.0.1",
+  "url": "https://raw.githubusercontent.com/ICHIMARUJ/safetynet-monitor/main/releases/SafetyNet-1.0.1.zip",
+  "sha256": "e78ac2793fabb421cdfc4e2c13bab9b567a080dc237454fca1e6ae95ad26b1f2",
+  "size": 924899,
+  "notes": "이모 PC 설치 보완: Python 찾는 위치 확대(Store·PC 전체 설치 등), 설치 기록(data/install_log.txt), 실패 시 안내",
   "date": "2026-11-26"
 }
