@@ -604,7 +604,7 @@ $('#setBtn').addEventListener('click', async () => {
   api('journal_get').then((j) => { $('#jrnMark').textContent = j.ready ? 'ON' : 'OFF'; $('#jrnMark').style.color = j.ready ? 'var(--brand2)' : ''; });
   const kinds = await api('kinds');
   $('#demoList').innerHTML = Object.entries(kinds).map(([k, d]) =>
-    `<button data-demo="${k}"><i style="width:9px;height:9px;border-radius:3px;display:block;background:${KIND_COLOR[k]}"></i><span style="flex:1">${esc(d.label)}</span><span class="muted" style="font-size:11px">${esc(d.image_name)}${d.has_image ? '' : ' · 그림 없음'}</span></button>`).join('');
+    `<button data-demo="${k}"><i style="width:9px;height:9px;border-radius:3px;display:block;background:${KIND_COLOR[k]}"></i><span style="flex:1">${esc(d.label)}</span></button>`).join('');
 });
 $('#autoBtn').addEventListener('click', async () => {
   const on = $('#autoBtn').getAttribute('aria-checked') !== 'true';
