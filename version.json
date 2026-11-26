@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "url": "https://github.com/ICHIMARUJ/safetynet-monitor/releases/download/v1.0.0/SafetyNet-1.0.0.zip",
-  "sha256": "e9a9b87df1879f3001c63059c21b6ad31453989563921f4705b8276dd36cce59",
-  "size": 924092,
+  "url": "https://raw.githubusercontent.com/ICHIMARUJ/safetynet-monitor/main/releases/SafetyNet-1.0.0.zip",
+  "sha256": "9e1817bf1226ad26b1d16e6fa5e8372de316a6e8514d0940b1807704689b8e28",
+  "size": 924201,
   "notes": "첫 배포: 실시간 감시·실수 기록·본전 알림·구글 시트 일지·자동 업데이트",
   "date": "2026-11-26"
 }

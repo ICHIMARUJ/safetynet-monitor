@@ -3,8 +3,9 @@
   python tools/release.py --repo OWNER/REPO --version 1.0.1 --notes "본전 알림 추가"
 
 만드는 것
-  dist/SafetyNet-<버전>.zip  : 코드만 (config.yaml·.env·data·alerts 그림은 절대 포함 안 함)
-  dist/SafetyNet.zip         : 위와 같은 파일 (이모 첫 설치용 고정 주소 releases/latest/download/SafetyNet.zip)
+  releases/SafetyNet-<버전>.zip : 코드만 (config.yaml·.env·data·alerts 그림은 절대 포함 안 함). 이전 버전 zip 은 지움
+  releases/SafetyNet.zip        : 위와 같은 파일 (첫 설치용 고정 주소)
+  → 저장소 main 에 그대로 커밋·푸시하면 배포 끝 (GitHub 릴리스 기능 안 씀)
   version.json               : 앱이 확인하는 최신 버전 정보 (저장소 main 에 올림)
   update.json, VERSION       : 앱에 들어가는 업데이트 주소·현재 버전
 """
@@ -32,7 +33,7 @@ def collect() -> list[str]:
         if not p.is_file():
             continue
         rel = p.relative_to(ROOT).as_posix()
-        if rel.startswith(("dist/", "data/", ".git/")) or ".pytest_cache" in rel:
+        if rel.startswith(("dist/", "data/", ".git/", "releases/")) or ".pytest_cache" in rel:
             continue
         if allowed(rel):
             out.append(rel)
@@ -53,8 +54,10 @@ def build(repo: str, version: str, notes: str) -> dict:
     for must in ("app.py", "VERSION", "update.json", "requirements.txt", "install.bat", "SafetyNet.bat"):
         if must not in files:
             raise SystemExit(f"필수 파일 없음: {must}")
-    dist = ROOT / "dist"
+    dist = ROOT / "releases"
     dist.mkdir(exist_ok=True)
+    for old_zip in dist.glob("SafetyNet-*.zip"):
+        old_zip.unlink()
     zpath = dist / f"SafetyNet-{version}.zip"
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
         for rel in files:
@@ -65,7 +68,7 @@ def build(repo: str, version: str, notes: str) -> dict:
     blob = zpath.read_bytes()
     (dist / "SafetyNet.zip").write_bytes(blob)
     manifest = {"version": version,
-                "url": f"https://github.com/{repo}/releases/download/v{version}/SafetyNet-{version}.zip",
+                "url": f"https://raw.githubusercontent.com/{repo}/main/releases/SafetyNet-{version}.zip",
                 "sha256": hashlib.sha256(blob).hexdigest(), "size": len(blob), "notes": notes,
                 "date": datetime.now(timezone.utc).strftime("%Y-%m-%d")}
     (ROOT / "version.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

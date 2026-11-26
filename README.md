@@ -80,7 +80,7 @@ cd $env:USERPROFILE\Documents\SafetyNet
 문제가 생기면 `data\app.log` 확인.
 
 ## 이모 PC 설치 (5단계)
-1. GitHub 릴리스 페이지에서 `SafetyNet.zip` 다운로드 → `문서\SafetyNet` 폴더에 압축 풀기
+1. https://github.com/ICHIMARUJ/safetynet-monitor/raw/main/releases/SafetyNet.zip 다운로드 → `문서\SafetyNet` 폴더에 압축 풀기
 2. `install.bat` 더블클릭 → Python 이 없으면 자동 설치, 패키지 설치, 이모용 설정(`presets/other`) 복사, 바탕화면 아이콘 생성 후 실행
 3. 처음 화면에서 Bybit **읽기 전용** API 키 입력 → 연결 테스트 → 저장 (키는 그 PC 에만 Windows 암호화로 저장, 읽기 전용이 아니면 저장 거부)
 4. ⚙ 설정 → PC 켜면 자동 실행 ON
@@ -89,7 +89,7 @@ cd $env:USERPROFILE\Documents\SafetyNet
 - 앱이 시작 1분 뒤, 이후 6시간마다 `update.json` 의 주소에서 `version.json` 을 확인
 - 새 버전이면 zip 다운로드 → sha256 확인 → 바뀔 파일 백업(`data/backup/<이전 버전>`) → 코드만 교체 → 패키지 목록이 바뀌었으면 설치 → 자동 재시작
 - **절대 안 바뀌는 것**: `config.yaml`(각자의 경고 기준), `.env`·`data/`(키·기록·일지 설정), `alerts/` 그림
-- 새 버전 만들기: `python tools/release.py --repo OWNER/REPO --version 1.0.1 --notes "변경 내용"` → `dist/` 의 zip 을 GitHub 릴리스(v1.0.1)에 올리고 `version.json` 을 main 에 올림
+- 새 버전 만들기: `python tools/release.py --repo OWNER/REPO --version 1.0.1 --notes "변경 내용"` → 바뀐 파일(releases/ zip, version.json 포함)을 main 에 커밋·푸시
 
 ## 업데이트 원칙
 - 코드(monitor/, run.py 등)는 본인용·상대용이 같다. 기능 수정은 양쪽에 똑같이 반영된다.
