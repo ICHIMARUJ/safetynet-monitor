@@ -1,0 +1,57 @@
+# Safety Net — 포지션 자가점검 시스템 설정
+# 숫자만 바꾸면 기준이 바뀜. 지갑 주소·API 키·텔레그램 토큰은 여기 말고 .env 에 넣을 것.
+
+poll_interval_sec: 15          # 거래소 조회 주기 (초)
+
+exchanges:
+  hyperliquid:
+    enabled: true
+    # HIP-3 마켓(trade.xyz 등)도 볼 경우 dex 이름 추가. "" = 기본 Hyperliquid perp
+    dexes: [""]
+  bybit:
+    enabled: true              # .env 에 BYBIT_API_KEY / SECRET 필요
+
+rules:
+  # 1. 과도한 레버리지: 실효 레버리지 = 포지션 명목가치 / 계좌 자본
+  leverage:
+    default_max: 5
+    per_coin:
+      BTC: 20
+    account_max: 20            # 전체 포지션 합산 실효 레버리지 한도
+
+  # 2. 손절 미설정: 진입 후 이 시간 안에 SL 주문이 없으면 경고
+  stop_loss_grace_min: 3
+
+  # 3. 손절 회피: SL을 손실 확대 방향으로 옮기거나 취소 / 계획 손절가 이탈 후 보유
+  stop_breach_grace_sec: 60    # 계획 손절가를 지난 뒤 이 시간 넘게 보유하면 위반
+
+  # 4. 물타기: 손실 중 추가 진입 (매매 계획에 등록된 분할 진입가는 예외)
+  averaging_down: true
+
+  # 5. 청산가 근접: 현재가~청산가 거리(%)
+  liq_distance_min_pct: 10
+
+  # 6. 1회 리스크: SL 체결 시 예상 손실 / 자본 (%)
+  max_risk_per_trade_pct: 2
+
+  # 7. 복수매매: 손실 청산 후 이 시간 안에 재진입하면 경고
+  revenge_cooldown_min: 15
+
+  # 8. 과매매: 하루 거래 횟수가 (최근 N일 평균 + k*표준편차) 초과
+  overtrading:
+    lookback_days: 30
+    sigma: 2
+    min_trades_floor: 10       # 데이터 적을 때 최소 기준
+
+  # 9. 사이즈 급증: 신규 포지션 명목가치가 평소 중앙값의 n배 초과
+  size_spike_multiple: 2
+
+  # 10. 일 손실 한도: 당일 실현손실이 자본의 n% 도달 후 신규 진입 시 위반
+  daily_loss_limit_pct: 5
+
+score:
+  start: 100                   # 매일 0시(UTC) 100점에서 시작, 위반마다 차감
+
+# 앱 기본 테마 (akira 아키라 | lime 네온 라임 | ocean 미드나잇 블루). 앱에서 바꾸면 data 폴더에 저장되어 그쪽이 우선
+ui:
+  theme: akira

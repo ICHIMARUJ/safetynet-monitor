@@ -1,0 +1,7 @@
+requests>=2.31
+PyYAML>=6.0
+python-dotenv>=1.0
+# 앱 창·트레이 (app.py)
+pywebview>=6.0
+pystray>=0.19
+Pillow>=11.0

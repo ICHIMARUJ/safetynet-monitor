@@ -1,0 +1,12 @@
+# 각자의 설정·키·기록 (저장소에 올리지 않음)
+config.yaml
+.env
+data/
+alerts/*
+!alerts/README.txt
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+check*.txt
+result.txt
